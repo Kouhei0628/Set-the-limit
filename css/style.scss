@@ -1,0 +1,434 @@
+@charset "utf-8";
+$fontColor1:#5d5d5d;
+$fontF1:'Ubuntu',
+sans-serif;
+@mixin card1 {
+    width: 100%;
+    padding: 1em;
+    margin-top: 38px;
+    background-color: #fff;
+    border-radius: 24px;
+    box-shadow: 4px 4px 15px #b9b9b9;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html,
+body {
+    position: relative;
+    background-color: #f5f5f5;
+     ::selection {
+        background: $fontColor1;
+        color: #fff;
+    }
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+#header {
+    top: 0;
+    height: 100px;
+    width: 100vw;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    vertical-align: middle;
+    position: fixed;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    z-index: 10;
+    // ヘッダーが見え隠れするアニメーション
+    &.UpMove {
+        animation: UpAnime 0.5s forwards;
+    }
+    @keyframes UpAnime {
+        from {
+            transform: translateY(0);
+        }
+        to {
+            transform: translateY(-100px);
+        }
+    }
+    &.DownMove {
+        animation: DownAnime 0.5s forwards;
+    }
+    @keyframes DownAnime {
+        from {
+            opacity: 0;
+            transform: translateY(-100px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    #header_wrap {
+        position: relative;
+        display: inline-block;
+        #header_title {
+            a {
+                // text-align: center;
+                color: $fontColor1;
+                font-size: 35px;
+                text-decoration: none;
+                // margin: 1rem 0 1rem 0;
+                font-family: $fontF1;
+                font-weight: 400;
+                @media all and (max-width: 390px) {
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+    #navButton {
+        cursor: pointer;
+        top: 25px;
+        right: 25px;
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        border: none;
+        background: transparent;
+        // z-index: 300;
+        span {
+            // left: 0;
+            height: 2px;
+            width: 100%;
+            background-color: $fontColor1;
+            border-radius: 2px;
+            display: inline-block;
+            &:nth-child(1) {
+                top: 0;
+            }
+            &:nth-child(2) {
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            &:nth-child(3) {
+                bottom: 0;
+            }
+        }
+        // ハンバーガーアニメーション
+        // &.active {
+        //     background-color: white;
+    }
+    .is-open #navButton>span {
+        background-color: white;
+        position: fixed;
+        &:nth-child(1) {
+            top: 50%;
+            transform: rotate(45deg) translateY(-50%);
+        }
+        &:nth-child(2) {
+            width: 0;
+        }
+        &:nth-child(3) {
+            top: 50%;
+            transform: rotate(-45deg) translateY(-50%);
+        }
+    }
+}
+
+#nav {
+    display: none;
+    position: fixed;
+    font-family: $fontF1;
+    color: $fontColor1;
+    transition: 0.5s;
+    #nav_title {
+        font-weight: 200;
+        font-size: 31px;
+        color: white;
+    }
+    ul {
+        list-style: none;
+        padding-left: 0;
+        li {}
+    }
+}
+
+.nav-show {
+    //隠しナビゲーション
+    overflow-y: scroll;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 346px;
+    height: 100%;
+    padding-left: 34px;
+    background-color: $fontColor1;
+    z-index: 50;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    transition: 0.5s;
+    transition-property: width,
+    text-align;
+    #nav_top {
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        #nav_title {
+            display: inline-block;
+            color: white;
+            margin: 23px 0 23px 0;
+            border-bottom: 1px solid white;
+            padding-bottom: 9px;
+        }
+        #closeNav {
+            display: block;
+            float: right;
+            z-index: 50;
+            font-size: 20px;
+            color: white;
+            margin: 27px 27px 0 0;
+            align-items: center;
+            transition: 0.5s;
+            &:hover {
+                cursor: pointer;
+                font-weight: bold;
+            }
+            &::after {
+                content: '';
+                transform: rotate(45deg);
+                border-top: 2px solid white;
+                border-right: 2px solid white;
+            }
+        }
+    }
+    ul {
+        color: white;
+        li {
+            line-height: 2.6em;
+            margin-bottom: 12px;
+            a {
+                position: relative;
+                display: inline-block;
+                text-decoration: none;
+                font-size: 20px;
+                color: white;
+                // アンダーバーのホバーアニメーション
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    height: 2px;
+                    background: white;
+                    transform: scale(0, 1);
+                    transform-origin: left top;
+                    transition: transform 0.5s;
+                }
+                &:hover::after {
+                    transform: scale(1, 1);
+                }
+                // ------------------------
+            }
+        }
+    }
+    animation: ShowAnime 0.5s forwards;
+    @keyframes ShowAnime {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(0);
+        }
+    }
+    &.hideNav {
+        animation: HideAnime 0.5s forwards;
+        @keyframes HideAnime {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(100%);
+            }
+        }
+    }
+    @media screen and (max-width:666px) {
+        width: 100vw;
+        padding-left: 14px;
+        text-align: center;
+        // アンダーバーのホバーアニメーション
+        #header ul li a::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 50%;
+            height: 2px;
+            background: white;
+            transform: scale(0, 1);
+            transform-origin: left top;
+            transition: transform 0.5s;
+        }
+        #header ul li a:hover::after {
+            transform: scale(1, 1);
+        }
+        // ------------------------
+    }
+    // --------------------------
+}
+
+#main {
+    margin-top: 138px;
+    margin-bottom: 138px;
+    #main_wrapper {
+        margin: 0 auto;
+        width: 80%;
+        // background-color: azure;
+        color: $fontColor1;
+        transition: all 0.5s;
+        #main_now {
+            @include card1;
+            font-size: 60px;
+            //ローディング画面
+            .loader {
+                align-items: center;
+                bottom: 0;
+                display: flex;
+                justify-content: center;
+                left: 0;
+                right: 0;
+                top: 0;
+                z-index: 999;
+                &::after {
+                    animation: loader 0.5s linear infinite;
+                    border: 4px solid $fontColor1;
+                    border-radius: 50%;
+                    border-right: 4px solid rgba($fontColor1, 0.2);
+                    border-top: 4px solid rgba($fontColor1, 0.2);
+                    content: "";
+                    height: 70px;
+                    width: 70px;
+                }
+            }
+            @keyframes loader {
+                0% {
+                    transform: rotate(0);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            // --------------------------
+            #main_now_countCurrent {
+                font-size: 100%;
+                font-weight: 300;
+                font-family: $fontF1;
+                text-align: center;
+                span {
+                    font-size: 35%;
+                }
+            }
+            @media all and (max-width:820px) {
+                // for ipad
+                font-size: 58px;
+                #main_now_countCurrent {
+                    span {
+                        font-size: 36%;
+                    }
+                }
+            }
+            @media all and (max-width: 390px) {
+                //for mobile phones
+                font-size: 51px;
+                #main_now_countCurrent {
+                    span {
+                        font-size: 36%;
+                    }
+                }
+            }
+            @media screen and (max-width:290px) {
+                #main_now_countCurrent {
+                    display: inline-block;
+                }
+            }
+        }
+        #clickToStart {
+            display: block;
+            // position: relative;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 78px;
+            #ready {
+                position: relative;
+                background-color: #fff;
+                color: $fontColor1;
+                padding: 18px;
+                top: 0;
+                font-family: $fontF1;
+                font-size: 30px;
+                font-weight: 200;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: all 0.5s;
+                &:hover {
+                    top: -3px;
+                    box-shadow: 0 3px 6px #b9b9b9;
+                }
+                &:active {
+                    top: 0;
+                    background-color: $fontColor1;
+                    color: white;
+                }
+                @media all and (max-width: 390px) {
+                    font-size: 20px;
+                }
+            }
+        }
+        #main_pullDown {
+            @include card1();
+            @media all and (max-width: 390px) {
+                border-radius: 0;
+            }
+        }
+        //テスト用テキスト
+        // #try {
+        //     margin-top: 58px;
+        //     p {
+        //         font-size: 45px;
+        //     }
+        // }
+    }
+    @media all and (max-width: 390px) {
+        #main_wrapper {
+            width: 100vw;
+            margin-left: 0;
+            box-shadow: 0px 4px 15px #b9b9b9;
+            #main_now {
+                border-radius: 0;
+            }
+        }
+        #main_cDown {
+            #main_cDown_num {}
+        }
+    }
+}
+
+#footer {
+    background-color: #fff;
+    height: 142px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    color: #a9a9a9;
+    #copyright {
+        #wrap {
+            #copyrightContent {
+                margin-top: 25px;
+            }
+        }
+    }
+}
