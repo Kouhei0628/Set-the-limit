@@ -11,6 +11,11 @@ sans-serif;
     box-shadow: 4px 4px 15px #b9b9b9;
 }
 
+@mixin button1 {
+    top: -3px;
+    box-shadow: 0 3px 6px #b9b9b9;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -149,7 +154,7 @@ body {
     ul {
         list-style: none;
         padding-left: 0;
-        li {}
+        // li {}
     }
 }
 
@@ -474,9 +479,9 @@ body {
                 border-radius: 0;
             }
         }
-        #main_cDown {
-            #main_cDown_num {}
-        }
+        // #main_cDown {
+        //     // #main_cDown_num {}
+        // }
     }
 }
 
