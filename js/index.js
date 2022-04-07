@@ -41,7 +41,7 @@ $(function() {
 
     //スクロール途中でヘッダーが消え、上にスクロールすると復活する設定を関数にまとめる
     function ScrollAnime() {
-        var elemTop = $('#main').offset().top; //#area-2の位置まできたら
+        var elemTop = $('body').offset().top; //#area-2の位置まできたら
         var scroll = $(window).scrollTop();
         //ヘッダーの出し入れをする
         if (scroll == beforePos) {
@@ -81,6 +81,7 @@ $(function() {
     });
 
     $(':not(.nav-show)').on('click', () => {
+        // $('#nav').toggleClass('nav-show');
         if (navTrue) {
             $('.nav-show').remove();
             console.log(navTrue);
@@ -95,12 +96,13 @@ $(function() {
         }
     });
 
+    var setTop = $('#main_pullDown').top;
     $('#ready').on('click', () => {
-        $('#ready').fadeOut();
-        $('#ready').slideUp(300);
-        $('#main_now').slideUp(300);
-        $('#main_pullDown').slideDown(300);
+        // $('#ready').fadeOut();
+        // $('#ready').slideUp(300);
+        // $('#main_now').slideUp(300);
 
-        window.scrollTo(0, top);
+        $('#main_pullDown').slideDown(300);
+        window.scrollTo(0, setTop);
     });
 });

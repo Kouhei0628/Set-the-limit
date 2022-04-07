@@ -106,6 +106,7 @@ body {
   height: 50px;
   border: none;
   background: transparent;
+  z-index: 30;
 }
 #header #navButton span {
   height: 2px;
@@ -141,7 +142,6 @@ body {
 }
 
 #nav {
-  display: none;
   position: fixed;
   font-family: "Ubuntu", sans-serif;
   color: #5d5d5d;
@@ -410,6 +410,7 @@ body {
   top: 0;
   background-color: #5d5d5d;
   color: white;
+  box-shadow: none;
 }
 @media all and (max-width: 390px) {
   #main #main_wrapper #clickToStart #ready {
@@ -423,30 +424,91 @@ body {
   background-color: #fff;
   border-radius: 24px;
   box-shadow: 4px 4px 15px #b9b9b9;
+  padding: 38px;
 }
 @media all and (max-width: 390px) {
   #main #main_wrapper #main_pullDown {
     border-radius: 0;
   }
 }
+#main #main_wrapper #main_pullDown #pullDown_order {
+  font-family: "Ubuntu", sans-serif;
+  text-align: center;
+  margin-bottom: 34px;
+}
+#main #main_wrapper #main_pullDown #followingList label {
+  display: flex;
+  align-self: center;
+}
+#main #main_wrapper #main_pullDown #followingList label input,
+#main #main_wrapper #main_pullDown #followingList label textarea {
+  display: block;
+  padding: 18px;
+  flex: 1;
+  border: 1px solid #d0d0d0;
+  border-radius: 14px;
+  transition: all 0.2s;
+}
+#main #main_wrapper #main_pullDown #followingList label input:focus,
+#main #main_wrapper #main_pullDown #followingList label textarea:focus {
+  outline: none;
+  border: 3px solid #5d5d5d;
+}
+#main #main_wrapper #main_pullDown #followingList label:not(:last-child) {
+  margin-bottom: 23px;
+}
+#main #main_wrapper #main_pullDown #followingList .notLast {
+  color: #818181;
+  align-self: center;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 20px;
+  font-weight: 200;
+  padding-right: 29px;
+  width: 180px;
+}
+#main #main_wrapper #main_pullDown #followingList .last {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 20px;
+  font-weight: 200;
+  color: #818181;
+  padding-top: 10px;
+  width: 180px;
+}
+#main #main_wrapper #main_pullDown #followingList .last #mini {
+  font-size: 68%;
+}
+@media all and (max-width: 390px) {
+  #main #main_wrapper #main_pullDown #followingList input,
+#main #main_wrapper #main_pullDown #followingList textarea {
+    padding: 10px;
+  }
+  #main #main_wrapper #main_pullDown #followingList .notLast {
+    width: 109px;
+    font-size: 14px;
+  }
+  #main #main_wrapper #main_pullDown #followingList .last {
+    width: 109px;
+    font-size: 14px;
+  }
+}
 @media all and (max-width: 390px) {
   #main #main_wrapper {
     width: 100vw;
     margin-left: 0;
-    box-shadow: 0px 4px 15px #b9b9b9;
   }
   #main #main_wrapper #main_now {
+    box-shadow: 0px 4px 15px #b9b9b9;
     border-radius: 0;
   }
 }
 
-#footer {
+footer {
   background-color: #fff;
   height: 142px;
   text-align: center;
   border-top: 1px solid #ddd;
   color: #a9a9a9;
 }
-#footer #copyright #wrap #copyrightContent {
-  margin-top: 25px;
+footer #copyright #copyrightContent {
+  padding-top: 5%;
 }/*# sourceMappingURL=style.css.map */

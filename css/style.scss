@@ -96,7 +96,7 @@ body {
         height: 50px;
         border: none;
         background: transparent;
-        // z-index: 300;
+        z-index: 30;
         span {
             // left: 0;
             height: 2px;
@@ -137,7 +137,6 @@ body {
 }
 
 #nav {
-    display: none;
     position: fixed;
     font-family: $fontF1;
     color: $fontColor1;
@@ -383,6 +382,7 @@ body {
                     top: 0;
                     background-color: $fontColor1;
                     color: white;
+                    box-shadow: none;
                 }
                 @media all and (max-width: 390px) {
                     font-size: 20px;
@@ -391,8 +391,70 @@ body {
         }
         #main_pullDown {
             @include card1();
+            padding: 38px;
             @media all and (max-width: 390px) {
                 border-radius: 0;
+            }
+            #pullDown_order {
+                font-family: $fontF1;
+                text-align: center;
+                margin-bottom: 34px;
+            }
+            #followingList {
+                label {
+                    display: flex;
+                    align-self: center;
+                    input,
+                    textarea {
+                        display: block;
+                        padding: 18px;
+                        flex: 1;
+                        border: 1px solid lighten($fontColor1, 45%);
+                        border-radius: 14px;
+                        transition: all 0.2s;
+                        &:focus {
+                            outline: none;
+                            border: 3px solid $fontColor1;
+                        }
+                    }
+                    &:not(:last-child) {
+                        margin-bottom: 23px;
+                    }
+                }
+                .notLast {
+                    color: lighten($fontColor1, 14%);
+                    align-self: center;
+                    font-family: $fontF1;
+                    font-size: 20px;
+                    font-weight: 200;
+                    padding-right: 29px;
+                    width: 180px;
+                }
+                .last {
+                    font-family: $fontF1;
+                    font-size: 20px;
+                    font-weight: 200;
+                    color: lighten($fontColor1, 14%);
+                    padding-top: 10px;
+                    width: 180px;
+                    #mini {
+                        font-size: 68%;
+                    }
+                }
+                @media all and (max-width: 390px) {
+                    input,
+                    textarea {
+                        padding: 10px;
+                    }
+                    .notLast {
+                        width: 109px;
+                        font-size: 14px;
+                    }
+                    .last {
+                        width: 109px;
+                        font-size: 14px;
+                    }
+                }
             }
         }
         //テスト用テキスト
@@ -407,8 +469,8 @@ body {
         #main_wrapper {
             width: 100vw;
             margin-left: 0;
-            box-shadow: 0px 4px 15px #b9b9b9;
             #main_now {
+                box-shadow: 0px 4px 15px #b9b9b9;
                 border-radius: 0;
             }
         }
@@ -418,17 +480,15 @@ body {
     }
 }
 
-#footer {
+footer {
     background-color: #fff;
     height: 142px;
     text-align: center;
     border-top: 1px solid #ddd;
     color: #a9a9a9;
     #copyright {
-        #wrap {
-            #copyrightContent {
-                margin-top: 25px;
-            }
+        #copyrightContent {
+            padding-top: 5%;
         }
     }
 }
