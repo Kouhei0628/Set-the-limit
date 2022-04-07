@@ -395,69 +395,82 @@ body {
             }
         }
         #main_pullDown {
-            @include card1();
-            padding: 38px;
-            @media all and (max-width: 390px) {
-                border-radius: 0;
-            }
-            #pullDown_order {
-                font-family: $fontF1;
-                text-align: center;
-                margin-bottom: 34px;
-            }
-            #followingList {
-                label {
-                    display: flex;
-                    align-self: center;
-                    input,
-                    textarea {
-                        display: block;
-                        padding: 18px;
-                        flex: 1;
-                        border: 1px solid lighten($fontColor1, 45%);
-                        border-radius: 14px;
-                        transition: all 0.2s;
-                        &:focus {
-                            outline: none;
-                            border: 3px solid $fontColor1;
+            #setBox {
+                @include card1();
+                padding: 38px;
+                @media all and (max-width: 390px) {
+                    border-radius: 0;
+                }
+                #pullDown_order {
+                    font-family: $fontF1;
+                    text-align: center;
+                    margin-bottom: 34px;
+                }
+                #followingList {
+                    label {
+                        display: flex;
+                        align-self: center;
+                        input,
+                        textarea {
+                            display: block;
+                            padding: 18px;
+                            flex: 1;
+                            border: 1px solid lighten($fontColor1, 45%);
+                            border-radius: 14px;
+                            transition: all 0.2s;
+                            &:focus {
+                                outline: none;
+                                border: 3px solid $fontColor1;
+                            }
+                        }
+                        &:not(:last-child) {
+                            margin-bottom: 23px;
                         }
                     }
-                    &:not(:last-child) {
-                        margin-bottom: 23px;
-                    }
-                }
-                .notLast {
-                    color: lighten($fontColor1, 14%);
-                    align-self: center;
-                    font-family: $fontF1;
-                    font-size: 20px;
-                    font-weight: 200;
-                    padding-right: 29px;
-                    width: 180px;
-                }
-                .last {
-                    font-family: $fontF1;
-                    font-size: 20px;
-                    font-weight: 200;
-                    color: lighten($fontColor1, 14%);
-                    padding-top: 10px;
-                    width: 180px;
-                    #mini {
-                        font-size: 68%;
-                    }
-                }
-                @media all and (max-width: 390px) {
-                    input,
-                    textarea {
-                        padding: 10px;
-                    }
                     .notLast {
-                        width: 109px;
-                        font-size: 14px;
+                        color: lighten($fontColor1, 14%);
+                        align-self: center;
+                        font-family: $fontF1;
+                        font-size: 20px;
+                        font-weight: 200;
+                        padding-right: 29px;
+                        width: 180px;
                     }
                     .last {
-                        width: 109px;
-                        font-size: 14px;
+                        font-family: $fontF1;
+                        font-size: 20px;
+                        font-weight: 200;
+                        color: lighten($fontColor1, 14%);
+                        padding-top: 10px;
+                        width: 180px;
+                        #mini {
+                            font-size: 68%;
+                        }
+                    }
+                    @media all and (max-width: 390px) {
+                        input,
+                        textarea {
+                            padding: 10px;
+                        }
+                        .notLast {
+                            width: 109px;
+                            font-size: 14px;
+                        }
+                        .last {
+                            width: 109px;
+                            font-size: 14px;
+                        }
+                    }
+                }
+                #sendOrReset {
+                    // display: inline-block;
+                    #sendSettings {
+                        border: none;
+                        background-color: #74db74;
+                    }
+                    #resetSettings {
+                        border: none;
+                        background-color: rgb(236, 111, 111);
                     }
                 }
             }

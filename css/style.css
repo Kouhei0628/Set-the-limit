@@ -418,7 +418,7 @@ body {
     font-size: 20px;
   }
 }
-#main #main_wrapper #main_pullDown {
+#main #main_wrapper #main_pullDown #setBox {
   width: 100%;
   padding: 1em;
   margin-top: 38px;
@@ -428,21 +428,21 @@ body {
   padding: 38px;
 }
 @media all and (max-width: 390px) {
-  #main #main_wrapper #main_pullDown {
+  #main #main_wrapper #main_pullDown #setBox {
     border-radius: 0;
   }
 }
-#main #main_wrapper #main_pullDown #pullDown_order {
+#main #main_wrapper #main_pullDown #setBox #pullDown_order {
   font-family: "Ubuntu", sans-serif;
   text-align: center;
   margin-bottom: 34px;
 }
-#main #main_wrapper #main_pullDown #followingList label {
+#main #main_wrapper #main_pullDown #setBox #followingList label {
   display: flex;
   align-self: center;
 }
-#main #main_wrapper #main_pullDown #followingList label input,
-#main #main_wrapper #main_pullDown #followingList label textarea {
+#main #main_wrapper #main_pullDown #setBox #followingList label input,
+#main #main_wrapper #main_pullDown #setBox #followingList label textarea {
   display: block;
   padding: 18px;
   flex: 1;
@@ -450,15 +450,15 @@ body {
   border-radius: 14px;
   transition: all 0.2s;
 }
-#main #main_wrapper #main_pullDown #followingList label input:focus,
-#main #main_wrapper #main_pullDown #followingList label textarea:focus {
+#main #main_wrapper #main_pullDown #setBox #followingList label input:focus,
+#main #main_wrapper #main_pullDown #setBox #followingList label textarea:focus {
   outline: none;
   border: 3px solid #5d5d5d;
 }
-#main #main_wrapper #main_pullDown #followingList label:not(:last-child) {
+#main #main_wrapper #main_pullDown #setBox #followingList label:not(:last-child) {
   margin-bottom: 23px;
 }
-#main #main_wrapper #main_pullDown #followingList .notLast {
+#main #main_wrapper #main_pullDown #setBox #followingList .notLast {
   color: #818181;
   align-self: center;
   font-family: "Ubuntu", sans-serif;
@@ -467,7 +467,7 @@ body {
   padding-right: 29px;
   width: 180px;
 }
-#main #main_wrapper #main_pullDown #followingList .last {
+#main #main_wrapper #main_pullDown #setBox #followingList .last {
   font-family: "Ubuntu", sans-serif;
   font-size: 20px;
   font-weight: 200;
@@ -475,22 +475,30 @@ body {
   padding-top: 10px;
   width: 180px;
 }
-#main #main_wrapper #main_pullDown #followingList .last #mini {
+#main #main_wrapper #main_pullDown #setBox #followingList .last #mini {
   font-size: 68%;
 }
 @media all and (max-width: 390px) {
-  #main #main_wrapper #main_pullDown #followingList input,
-#main #main_wrapper #main_pullDown #followingList textarea {
+  #main #main_wrapper #main_pullDown #setBox #followingList input,
+#main #main_wrapper #main_pullDown #setBox #followingList textarea {
     padding: 10px;
   }
-  #main #main_wrapper #main_pullDown #followingList .notLast {
+  #main #main_wrapper #main_pullDown #setBox #followingList .notLast {
     width: 109px;
     font-size: 14px;
   }
-  #main #main_wrapper #main_pullDown #followingList .last {
+  #main #main_wrapper #main_pullDown #setBox #followingList .last {
     width: 109px;
     font-size: 14px;
   }
+}
+#main #main_wrapper #main_pullDown #setBox #sendOrReset #sendSettings {
+  border: none;
+  background-color: #74db74;
+}
+#main #main_wrapper #main_pullDown #setBox #sendOrReset #resetSettings {
+  border: none;
+  background-color: rgb(236, 111, 111);
 }
 @media all and (max-width: 390px) {
   #main #main_wrapper {
