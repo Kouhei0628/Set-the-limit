@@ -492,13 +492,49 @@ body {
     font-size: 14px;
   }
 }
-#main #main_wrapper #main_pullDown #setBox #sendOrReset #sendSettings {
-  border: none;
-  background-color: #74db74;
+#main #main_wrapper #main_pullDown #sendOrReset {
+  text-align: center;
+  margin-top: 39px;
 }
-#main #main_wrapper #main_pullDown #setBox #sendOrReset #resetSettings {
+#main #main_wrapper #main_pullDown #sendOrReset input {
+  font-size: 27px;
+  color: white;
+  padding: 15px 26px;
+  margin: 0 12px;
+  border-radius: 40px;
+  cursor: pointer;
+  box-shadow: 4px 4px 15px rgba(93, 93, 93, 0.5);
+}
+#main #main_wrapper #main_pullDown #sendOrReset #sendSettings {
+  display: inline-block;
   border: none;
-  background-color: rgb(236, 111, 111);
+  background-color: #a2efa2;
+  transform: translate(0, -2px);
+}
+#main #main_wrapper #main_pullDown #sendOrReset #sendSettings:hover {
+  transform: translate(0, 0);
+  box-shadow: none;
+  background-color: white;
+  color: #a2efa2;
+  border: 2px dotted #a2efa2;
+}
+#main #main_wrapper #main_pullDown #sendOrReset #resetSettings {
+  display: inline-block;
+  border: none;
+  background-color: #ec6f6f;
+  transform: translate(0, -2px);
+}
+#main #main_wrapper #main_pullDown #sendOrReset #resetSettings:hover {
+  transform: translate(0, 0);
+  box-shadow: none;
+  background-color: white;
+  color: #ec6f6f;
+  border: 2px dotted #ec6f6f;
+}
+@media all and (max-width: 390px) {
+  #main #main_wrapper #main_pullDown #sendOrReset input {
+    font-size: 16px;
+  }
 }
 @media all and (max-width: 390px) {
   #main #main_wrapper {

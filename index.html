@@ -81,14 +81,18 @@
                     </div>
                 </div>
                 <div id="sendOrReset">
-                    <input type="submit" value="Done!" id="sendSettings">
-                    <input type="submit" value="Reset" id="resetSettings">
+                    <input type="submit" value="Done!" id="sendSettings" required>
+                    <input type="submit" value="Reset?" id="resetSettings" required>
                 </div>
             </section>
+            <!-- -------------------- -->
 
-            <div id="main_cDown">
-                <p id="main_cDown_num"></p>
-            </div>
+            <!-- データ送信後のカウントダウン -->
+            <section id="main_cDown">
+                <div id="cDownDisplay">
+                    <p id="main_cDown_num"></p>
+                </div>
+            </section>
             <!-- テスト用テキスト -->
             <!-- <div id="try">
                 <p>テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります</p>
