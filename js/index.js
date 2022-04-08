@@ -96,13 +96,12 @@ $(function() {
         }
     });
 
-    var setTop = $('#main_pullDown').top;
+    // クリックで該当箇所までスクロール
     $('#ready').on('click', () => {
-        // $('#ready').fadeOut();
-        // $('#ready').slideUp(300);
-        // $('#main_now').slideUp(300);
-
         $('#main_pullDown').slideDown(300);
-        window.scrollTo(0, setTop);
+        var setTop = document.getElementById('main_pullDown');
+        var position = setTop.getBoundingClientRect();
+
+        window.scrollTo(0, position.top);
     });
 });
