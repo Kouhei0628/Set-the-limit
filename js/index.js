@@ -68,33 +68,28 @@ $(function() {
     });
     // ------------------------
     // $('#main_now_countCurrent').text(output);
-    const navTrue = $('#nav').hasClass('nav-show');
-    $('#navButton').on('click', () => {
+    // const navTrue = $('#nav').toggleClass('nav-show');
+
+    // ハンバーガーメニュー切り替えアニメ
+    $('#navButton').click(function() {
         $('#nav').toggleClass('nav-show');
-        console.log('dd');
-        if (navTrue) {
-            $('.nav-show').hide();
+
+        if ($(this).hasClass('is-open')) {
+            $('#navButton').toggleClass('is-close');
         } else {
-            $('.nav-show').show();
-            console.log('ww');
+            $('#navButton').toggleClass('is-open');
         }
+        // console.log(document.getElementById('nav'));
     });
 
-    $(':not(.nav-show)').on('click', () => {
-        // $('#nav').toggleClass('nav-show');
-        if (navTrue) {
-            $('.nav-show').remove();
-            console.log(navTrue);
-        }
-    });
-
-    $('#closeNav').on('click', () => {
-        $('#nav').toggleClass('nav-show');
-        if (navTrue) {
-            $('#nav').addClass('hideNav');
-            $('#nav').removeClass('nav-show');
-        }
-    });
+    // ハンバーガーメニュー出現時に他をクリックしたらメニューが閉じる仕様
+    // $(':not(.nav-show)').on('click', () => {
+    //     // $('#nav').toggleClass('nav-show');
+    //     if (navTrue) {
+    //         $('.nav-show').remove();
+    //         console.log(navTrue);
+    //     }
+    // });
 
     // クリックで該当箇所までスクロール
     $('#ready').on('click', () => {
