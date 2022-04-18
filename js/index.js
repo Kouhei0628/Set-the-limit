@@ -102,35 +102,72 @@ $(function() {
         setTop.classList.add("show");
     });
 
-    // フォーム入力の反映
-    const nameElm = document.querySelector("#inputEventText");
-    const dateElm = document.querySelector("#inputEventDate");
-    const timeElm = document.querySelector("#inputEventTime");
-    const memoElm = document.querySelector("#inputMemo");
-
-    const nameVal = nameElm.value;
-    const dateVal = dateElm.value;
-    const timeVal = timeElm.value;
-    const memoVal = memoElm.value;
-
-    nameElm.addEventListener("input", () => {
-        document.getElementById("outputName").innerHTML = nameVal;
-        console.log(nameVal);
-    });
-
     // ポップアップ出す
     const doneBtn = document.getElementById("sendSettings");
     const donePopup = document.getElementsByClassName("donePopup");
     const resetBtn = document.getElementById("resetSettings");
     const resetPopup = document.querySelectorAll(".resetPopup");
 
-    doneBtn.addEventListener("click", () => {
-        var i = 0;
-        while (i < 2) {
-            donePopup[i].classList.add("show");
-            i++;
+    // フォーム入力の反映
+    var nameElm = document.querySelector("#inputEventText");
+    var dateElm = document.querySelector("#inputEventDate[type='date']");
+    var timeElm = document.querySelector("#inputEventTime");
+    var memoElm = document.querySelector("#inputMemo");
+
+    var dateAndTimeElm = dateElm + timeElm;
+
+    // フォーム値をポップアップに反映
+    nameElm.addEventListener("input", () => {
+        document.getElementById("outputName").innerHTML = nameElm.value;
+        console.log(nameElm.value);
+        // 入力時エラー除去
+        if (nameElm.value.length != 0) {
+            document.getElementById("nameError").innerHTML = "";
         }
     });
+
+    dateElm.addEventListener("input", () => {
+        document.getElementById("outputDateTime").innerHTML = dateAndTimeElm.value;
+        console.log(dateAndTimeElm.value);
+        // 入力時エラー除去
+        if (dateElm.value.length != 0) {
+            document.getElementById("dateError").innerHTML = "";
+        }
+    });
+
+    memoElm.addEventListener("input", () => {
+        document.getElementById("outputMemo").innerHTML = memoElm.value;
+        console.log(memoElm.value);
+        // 入力時エラー除去
+        if (memoElm.value.length != 0) {
+            document.getElementById("memoError").innerHTML = "";
+        }
+    });
+
+    // done押した時
+    doneBtn.addEventListener("click", () => {
+        // 入力がないときはエラーを返す
+        if (nameElm.value === "" && dateElm.value === "" && timeElm.value === "") {
+            document.getElementById("nameError").innerHTML =
+                "イベントを入力してください";
+            document.getElementById("dateError").innerHTML = "日付を入力してください";
+            document.getElementById("timeError").innerHTML = "時間を入力してください";
+        } else if (nameElm.value === "") {
+            document.getElementById("nameError").innerHTML =
+                "イベントを入力してください";
+        } else if (dateElm.value === "") {
+            document.getElementById("dateError").innerHTML = "日付を入力してください";
+        } else if (timeElm.value === "") {
+            document.getElementById("timeError").innerHTML = "時間を入力してください";
+        } else {
+            var i = 0;
+            while (i < 2) {
+                donePopup[i].classList.add("show");
+                i++;
+            }
+        }
+    });
+
     // done-yesの時
     const doneOK = document.querySelector(".doneOK");
 
@@ -153,6 +190,21 @@ $(function() {
         }
     });
     // reset-yesの時
+    // フォームクリア
+    document.querySelector(".resetOK").addEventListener("click", () => {
+        var i = 0;
+        while (i < 2) {
+            resetPopup[i].classList.remove("show");
+            i++;
+        }
+        nameElm.value = "";
+        document.getElementById("outputName").innerHTML = "";
+        dateElm.value = "";
+        timeElm.value = "";
+        document.getElementById("outputDateTime").innerHTML = "";
+        memoElm.value = "";
+        document.getElementById("outputMemo").innerHTML = "";
+    });
 
     // reset-noの時
     const resetCanc = document.querySelector(".resetCanc");
