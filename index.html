@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" prefix=”og: http://ogp.me/ns#”>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ogp -->
+    <meta property="og:url" content="/set-the-limit.com">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/set-the-limit.com/public_html/image/sl.svg">
+    <meta property="og:title" content="Set the Limit">
+    <meta property="og:description" content="次の予定を設定できる簡易的なウェブアプリケーションを制作しました。">
+    <!--  -->
     <title>Set The Limit</title>
     <link rel="shortcut icon" href="/images/sl.svg" type="image/x-icon">
     <link rel="stylesheet" href="/css/style.css">
@@ -21,52 +29,22 @@
                 <a href="/">Set The Limit</a>
             </h1>
         </div>
-        <button type="button" class="navButton">
-            <span class="first_"></span>
-            <span class="second"></span>
-            <span class="third"></span>
-        </button>
-        <div class="navBg"></div>
-        <nav class="nav">
-            <div id="nav_top">
-                <h2 id="nav_title">Menu</h2>
-                <!-- <p id="closeNav">Close</p> -->
-            </div>
-            <ul>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-                <li><a href="#">Contents</a></li>
-            </ul>
-        </nav>
     </header>
     <main id="main">
         <div id="main_wrapper">
+            <!-- 現在時刻 -->
             <section id="main_now" class="main-now">
                 <div id="js-loader" class="loader"></div>
                 <p id="main_now_countCurrent" class="countCurrent"></p>
             </section>
+            <!--  -->
             <div id="clickToStart">
-                <button id="ready" onclick="this.disabled = true;">Click to Start!</button>
+                <button id="ready" onclick="this.disabled = true;">はじめる</button>
             </div>
             <!-- イベント入力フォームがプルダウンする -->
             <section id="main_pullDown">
                 <div id="setBox">
-                    <h2 id="pullDown_order">Set your following event.</h2>
+                    <h2 id="pullDown_order">イベントを設定</h2>
                     <div id="followingList">
                         <!-- イベント名 -->
                         <form action="" name="myForm">
@@ -91,14 +69,14 @@
                             <label id="event_time">
                                 <span class="eventCol notLast">Time</span>
                                 <div class="formSet">
-                                    <input type="time" id="inputEventTime" class="inputEvent" placeholder="時間を設定してください"
-                                        required>
+                                    <input type="time" id="inputEventTime" value="00:00" class="inputEvent"
+                                        placeholder="時間を設定してください" required>
                                     <p id="timeError"></p>
                                 </div>
                             </label>
                             <!-- メモ -->
                             <label>
-                                <span class="eventCol last">Memo<br><span id="mini">(optional)</span></span>
+                                <span class="eventCol last">Memo<br><span id="mini">(任意)</span></span>
                                 <textarea type="textarea" name="memo" id="inputMemo" placeholder="その他メモ"></textarea>
                                 <p id="memoError"></p>
                             </label>
@@ -111,33 +89,47 @@
                 </div>
             </section>
             <!-- -------------------- -->
-            <!-- done時のポップアップ -->
+            <!-- doneクリック時のポップアップ -->
             <div class="donePopup doneBg"></div>
             <div class="donePopup popContainer">
                 <div id="contentArea">
                     <p class="confirmMess">以下のイベントで確定します。<br>よろしいですか？</p>
-                    <ul id="yourEvents">
-                        <li class="EContent name">イベント名：<span id="outputName"></span></li>
-                        <li class="EContent dateAndTime">日時：<span id="outputDateTime"></span></li>
-                        <li class="EContent memo">メモ：<span id="outputMemo"></span></li>
+                    <ul id="yourEvent">
+                        <li class="evContent name">イベント<br><span id="outputName"></span></li>
+                        <hr>
+                        <li class="evContent dateAndTime">日時<br><span id="outputDateTime"></span></li>
+                        <hr>
+                        <li class="evContent memo">メモ<br><span id="outputMemo"></span></li>
                     </ul>
-                    <button class="doneOK">OK</button>
-                    <button class="doneCanc">キャンセル</button>
+                    <div class="which">
+                        <button class="OK doneOK">OK</button>
+                        <button class="canc doneCanc">キャンセル</button>
+                    </div>
                 </div>
             </div>
-            <!-- reset時のポップアップ -->
+            <!-- resetクリック時のポップアップ -->
             <div class="resetPopup resetBg"></div>
             <div class="resetPopup popContainer">
                 <div id="contentArea">
                     <div class="confirmMess">入力をクリアします。<br>よろしいですか？</div>
-                    <button class="resetOK">OK</button>
-                    <button class="resetCanc">キャンセル</button>
+                    <div class="which">
+                        <button class="OK resetOK">OK</button>
+                        <button class="canc resetCanc">キャンセル</button>
+                    </div>
                 </div>
             </div>
-            <!-- データ送信後のカウントダウン -->
+            <!-- 時間反映後のカウントダウン -->
             <section id="main_cDown">
                 <div id="cDownDisplay">
-                    <p id="main_cDown_num"></p>
+                    <h2 class="main_cDown_name">
+                        " <span class="_name_inner"></span> "
+                    </h2>
+                    <p class="made">まで</p>
+                    <p id="main_cDown_time">残り<br><span id="_time_num"></span></p>
+                    <p class="main_cDown_memo">メモ<br><span class="_memo_text"></span></p>
+                </div>
+                <div class="main_restart">
+                    <button class="_restart_btn">Restart</button>
                 </div>
             </section>
         </div>
@@ -150,6 +142,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/loading.js"></script>
     <script src="/js/index.js"></script>
+    <script src="/js/countdown.js"></script>
 </body>
 
 </html>

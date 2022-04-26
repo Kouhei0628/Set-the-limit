@@ -1,0 +1,702 @@
+@charset "utf-8";
+@use "countdown";
+$fontColor1: #5d5d5d;
+$fontF1: sans-serif;
+@mixin card1 {
+    width: 100%;
+    padding: 1em;
+    margin-top: 38px;
+    background-color: #fff;
+    border-radius: 24px;
+    box-shadow: 4px 4px 15px #b9b9b9;
+}
+
+@mixin button1 {
+    top: -3px;
+    box-shadow: 0 3px 6px #b9b9b9;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html,
+body {
+    position: relative;
+    background-color: #f5f5f5;
+     ::selection {
+        background: $fontColor1;
+        color: #fff;
+    }
+}
+
+body {
+    animation: bodyFadein 1s forwards;
+    @keyframes bodyFadein {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+}
+
+#header {
+    top: 0;
+    height: 100px;
+    width: 100vw;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    position: -webkit-fixed;
+    position: fixed;
+    z-index: 555;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    // ヘッダーが見え隠れするアニメーション
+    &.UpMove {
+        animation: UpAnime 0.5s forwards;
+    }
+    @keyframes UpAnime {
+        from {
+            transform: translateY(0);
+        }
+        to {
+            transform: translateY(-100px);
+        }
+    }
+    &.DownMove {
+        animation: DownAnime 0.5s forwards;
+    }
+    @keyframes DownAnime {
+        from {
+            opacity: 0;
+            transform: translateY(-100px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    #header_wrap {
+        position: relative;
+        display: inline-block;
+        #header_title {
+            a {
+                // text-align: center;
+                color: $fontColor1;
+                font-size: 35px;
+                text-decoration: none;
+                // margin: 1rem 0 1rem 0;
+                font-family: $fontF1;
+                font-weight: 400;
+                @media all and (max-width: 390px) {
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+    .navButton {
+        display: inline-block;
+        cursor: pointer;
+        top: 25px;
+        right: 25px;
+        width: 50px;
+        height: 50px;
+        border: none;
+        background: none;
+        position: -webkit-fixed;
+        position: fixed;
+        z-index: 111111;
+        &>span {
+            // left: 0;
+            height: 3px;
+            width: 100%;
+            background-color: $fontColor1;
+            border-radius: 2px;
+            display: inline-block;
+            position: relative;
+            transition: all 0.5s;
+            &:nth-child(1) {
+                top: 0;
+            }
+            &:nth-child(3) {
+                bottom: 0;
+            }
+        }
+        // ハンバーガーアニメーション（開いた時）
+        &.open {
+            &>span {
+                background-color: #fff;
+                position: relative;
+                &:nth-child(1) {
+                    top: 15.5px;
+                    transform: rotate(405deg) translateY(-50%);
+                    -webkit-transform: rotate(405deg) translateY(-50%);
+                }
+                &:nth-child(2) {
+                    width: 0;
+                    opacity: 0;
+                }
+                &:nth-child(3) {
+                    bottom: 15.5px;
+                    transform: rotate(-405deg) translateY(50%);
+                    -webkit-transform: rotate(-405deg) translateY(50%);
+                }
+            }
+            @media screen and (min-width: 390px) {
+                &>span {
+                    background-color: #fff;
+                    position: relative;
+                    &:nth-child(1) {
+                        top: 16.5px;
+                        transform: rotate(405deg) translateY(-50%);
+                        -webkit-transform: rotate(405deg) translateY(-50%);
+                    }
+                    &:nth-child(2) {
+                        width: 0;
+                        opacity: 0;
+                    }
+                    &:nth-child(3) {
+                        bottom: 16.5px;
+                        transform: rotate(-405deg) translateY(50%);
+                        -webkit-transform: rotate(-405deg) translateY(50%);
+                    }
+                }
+            }
+        }
+    }
+    .navBg {
+        visibility: hidden;
+        transition: opacity, visibility 0.3s;
+        background-color: #3d3d3d;
+        height: 130vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        position: -webkit-fixed;
+        position: fixed;
+        &.open {
+            opacity: 0.3;
+            visibility: visible;
+        }
+    }
+    .nav {
+        overflow-y: auto;
+        position: -webkit-fixed;
+        position: fixed;
+        z-index: 5000;
+        top: 0;
+        right: -100%;
+        width: 346px;
+        height: calc(100vh + 100px);
+        padding-left: 34px;
+        background-color: $fontColor1;
+        font-family: $fontF1;
+        transition: all 0.3s;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        &.open {
+            right: 0;
+        }
+        #nav_top {
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            #nav_title {
+                display: inline-block;
+                color: white;
+                margin: 23px 0 23px 0;
+                border-bottom: 1px solid white;
+                padding-bottom: 9px;
+            }
+        }
+        ul {
+            color: white;
+            li {
+                line-height: 2.6em;
+                margin-bottom: 12px;
+                a {
+                    position: relative;
+                    display: inline-block;
+                    text-decoration: none;
+                    font-size: 20px;
+                    color: white;
+                    // アンダーバーのホバーアニメーション
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        height: 2px;
+                        background: white;
+                        transform: scale(0, 1);
+                        transform-origin: left top;
+                        transition: transform 0.5s;
+                    }
+                    &:hover::after {
+                        transform: scale(1, 1);
+                    }
+                    // ------------------------
+                }
+            }
+        }
+        #nav_title {
+            font-weight: 200;
+            font-size: 31px;
+            color: white;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+            // li {}
+        }
+        @media screen and (max-width: 666px) {
+            width: 100vw;
+            padding-left: 14px;
+            text-align: center;
+            // アンダーバーのホバーアニメーション
+            #header ul li a::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                width: 50%;
+                height: 2px;
+                background: white;
+                transform: scale(0, 1);
+                transform-origin: left top;
+                transition: transform 0.5s;
+            }
+            #header ul li a:hover::after {
+                transform: scale(1, 1);
+            }
+            // ------------------------
+        }
+    }
+}
+
+#main {
+    margin-top: 138px;
+    margin-bottom: 138px;
+    #main_wrapper {
+        margin: 0 auto;
+        width: 80%;
+        color: $fontColor1;
+        #main_now {
+            @include card1;
+            font-size: 60px;
+            //ローディング画面
+            .loader {
+                align-items: center;
+                bottom: 0;
+                display: flex;
+                justify-content: center;
+                left: 0;
+                right: 0;
+                top: 0;
+                z-index: 0;
+                &::after {
+                    animation: loader 1s linear infinite;
+                    border: 4px solid $fontColor1;
+                    border-radius: 50%;
+                    border-right: 4px solid rgba($fontColor1, 0.2);
+                    border-top: 4px solid rgba($fontColor1, 0.2);
+                    content: "";
+                    height: 70px;
+                    width: 70px;
+                }
+            }
+            @keyframes loader {
+                0% {
+                    transform: rotate(0);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            // --------------------------
+            #main_now_countCurrent {
+                font-size: 100%;
+                font-weight: 300;
+                font-family: $fontF1;
+                text-align: center;
+                span {
+                    font-size: 35%;
+                }
+            }
+            @media all and (max-width: 820px) {
+                // for ipad
+                font-size: 58px;
+                #main_now_countCurrent {
+                    span {
+                        font-size: 36%;
+                    }
+                }
+            }
+            @media all and (max-width: 390px) {
+                //for mobile phones
+                font-size: 51px;
+                #main_now_countCurrent {
+                    span {
+                        font-size: 36%;
+                    }
+                }
+            }
+            @media screen and (max-width: 290px) {
+                #main_now_countCurrent {
+                    display: inline-block;
+                }
+            }
+        }
+        #clickToStart {
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 78px;
+            #ready {
+                background-color: #fff;
+                color: $fontColor1;
+                padding: 18px;
+                top: 0;
+                font-family: $fontF1;
+                font-size: 30px;
+                font-weight: 200;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: all 0.5s;
+                &:hover {
+                    top: -3px;
+                    box-shadow: 0 3px 6px #b9b9b9;
+                }
+                &:active {
+                    top: 0;
+                    background-color: $fontColor1;
+                    color: white;
+                    box-shadow: none;
+                }
+                @media all and (max-width: 390px) {
+                    font-size: 20px;
+                }
+            }
+        }
+        #main_pullDown {
+            display: none;
+            opacity: 0;
+            position: relative;
+            z-index: 0;
+            &.show {
+                display: block;
+                animation: pullDown 0.2s forwards;
+                transform-origin: top;
+                @keyframes pullDown {
+                    0% {
+                        transform: scaleY(0);
+                        opacity: 0;
+                    }
+                    100% {
+                        transform: scaleY(1);
+                        opacity: 1;
+                        display: block;
+                    }
+                }
+            }
+            #setBox {
+                @include card1();
+                padding: 38px;
+                @media all and (max-width: 390px) {
+                    border-radius: 0;
+                    #followingList>span {
+                        display: block;
+                        width: 100%;
+                        input,
+                        textarea {
+                            padding: 10px;
+                        }
+                    }
+                }
+                #pullDown_order {
+                    font-family: $fontF1;
+                    text-align: center;
+                    margin-bottom: 34px;
+                }
+                #followingList {
+                    label {
+                        display: block;
+                        input,
+                        textarea {
+                            -webkit-appearance: none;
+                            padding: 15px;
+                            background-color: transparent;
+                            border: 1px solid lighten($fontColor1, 45%);
+                            border-radius: 14px;
+                            font-size: 19px;
+                            color: $fontColor1;
+                            font-family: $fontF1;
+                            transition: all 0.2s;
+                            width: 100%;
+                            &:focus {
+                                outline: none;
+                                border: 2px solid $fontColor1;
+                            }
+                        }
+                        &:not(:last-child) {
+                            margin-bottom: 23px;
+                        }
+                        .formSet {
+                            display: block;
+                        }
+                    }
+                    .notLast {
+                        color: lighten($fontColor1, 14%);
+                        font-family: $fontF1;
+                        font-size: 20px;
+                        font-weight: 200;
+                    }
+                    .last {
+                        display: flex;
+                        font-family: $fontF1;
+                        font-size: 20px;
+                        font-weight: 200;
+                        color: lighten($fontColor1, 14%);
+                        #mini {
+                            display: inline-block;
+                            font-size: 68%;
+                            font-family: $fontF1;
+                        }
+                    }
+                    #nameError,
+                    #dateError,
+                    #timeError,
+                    #memoError {
+                        font-size: 12px;
+                        font-family: $fontF1;
+                        color: red;
+                    }
+                    @media all and (max-width: 390px) {
+                        input,
+                        textarea {
+                            padding: 10px;
+                        }
+                        .notLast {
+                            width: 109px;
+                            // font-size: 14px;
+                        }
+                        .last {
+                            width: 109px;
+                            // font-size: 14px;
+                        }
+                    }
+                }
+            }
+            // Done! or Reset? buttons below
+            #sendOrReset {
+                text-align: center;
+                margin-top: 39px;
+                input {
+                    font-size: 20px;
+                    color: white;
+                    padding: 15px 26px;
+                    margin: 0 12px;
+                    border-radius: 40px;
+                    cursor: pointer;
+                    box-shadow: 4px 4px 15px rgba($fontColor1, 0.5);
+                    -webkit-appearance: none;
+                }
+                // display: inline-block;
+                #sendSettings {
+                    -webkit-appearance: none;
+                    display: inline-block;
+                    border: none;
+                    background-color: #a2efa2;
+                    transition: all 0.3s;
+                    &:hover {
+                        box-shadow: none;
+                        background-color: white;
+                        color: #a2efa2;
+                        border: 2px solid #a2efa2;
+                        animation-fill-mode: normal;
+                    }
+                }
+                #resetSettings {
+                    -webkit-appearance: none;
+                    display: inline-block;
+                    border: none;
+                    background-color: #ec6f6f;
+                    transition: all 0.3s;
+                    &:hover {
+                        box-shadow: none;
+                        background-color: white;
+                        color: #ec6f6f;
+                        border: 2px solid #ec6f6f;
+                        animation-fill-mode: normal;
+                    }
+                }
+                @media all and (max-width: 390px) {
+                    input {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+        .doneBg {
+            position: -webkit-fixed;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #3d3d3d;
+            opacity: 0;
+            transition: 0.3s;
+            transition-property: opacity, visibility;
+            &.show {
+                opacity: 0.3;
+            }
+        }
+        .resetBg {
+            position: -webkit-fixed;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #3d3d3d;
+            opacity: 0;
+            transition: 0.3s;
+            transition-property: opacity, visibility;
+            &.show {
+                opacity: 0.3;
+            }
+        }
+        .popContainer {
+            position: -webkit-fixed;
+            position: fixed;
+            inset: 0;
+            margin: auto;
+            padding: 32px;
+            width: 320px;
+            height: 420px;
+            font-family: $fontF1;
+            color: $fontColor1;
+            background-color: white;
+            border-radius: 12px;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s;
+            &.show {
+                visibility: visible;
+                opacity: 1;
+            }
+            #contentArea {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                .confirmMess {
+                    width: 100%;
+                    display: inline-block;
+                    text-align: center;
+                    font-size: 17px;
+                    margin-bottom: 15px;
+                }
+                #yourEvent {
+                    height: 230px;
+                    overflow-y: auto;
+                    list-style: none;
+                    padding-left: 0;
+                    font-size: 10;
+                    color: rgba($fontColor1, 0.6);
+                    .evContent {
+                        margin: 7px 0;
+                    }
+                    #outputName,
+                    #outputDateTime,
+                    #outputMemo {
+                        color: turquoise;
+                        font-size: 19px;
+                        line-height: 1em;
+                    }
+                }
+            }
+            .which {
+                display: block;
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                button {
+                    display: inline-block;
+                    border: none;
+                    margin: 0 6px;
+                    padding: 7px;
+                    height: 41px;
+                    width: 87px;
+                    border-radius: 9px;
+                }
+                .OK {
+                    background-color: $fontColor1;
+                    color: white;
+                }
+                .canc {
+                    background-color: white;
+                    color: $fontColor1;
+                    border: 2px solid $fontColor1;
+                }
+            }
+        }
+        .donePopup {
+            visibility: hidden;
+            transition: all 0.3s;
+            &.show {
+                visibility: visible;
+            }
+        }
+        .resetPopup {
+            visibility: hidden;
+            transition: all 0.3s;
+            &.show {
+                visibility: visible;
+            }
+            .confirmMess {
+                color: red;
+                font-weight: bold;
+                position: relative;
+                top: 40%;
+            }
+        }
+    }
+    @media all and (max-width: 390px) {
+        #main_wrapper {
+            width: 100vw;
+            margin-left: 0;
+            #main_now {
+                box-shadow: 0px 4px 15px #b9b9b9;
+                border-radius: 0;
+            }
+        }
+    }
+}
+
+footer {
+    background-color: #fff;
+    height: 142px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    color: #a9a9a9;
+    bottom: 0;
+    #copyright {
+        #copyrightContent {
+            padding-top: 5%;
+        }
+    }
+}

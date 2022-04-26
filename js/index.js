@@ -69,37 +69,40 @@ $(function() {
         event.classList.remove("navBg");
     }
 
+    // スクロール禁止関数
+    function preventScroll(event) {
+        event.preventDefault();
+    }
+
+    function disableScroll() {
+        // スクロール禁止
+        document.addEventListener("touchmove", preventScroll, { passive: false });
+        document.addEventListener("mousewheel", preventScroll, { passive: false });
+    }
+
+    function ableScroll() {
+        // スクロール可能
+        document.removeEventListener("touchmove", preventScroll, {
+            passive: false,
+        });
+        document.removeEventListener("mousewheel", preventScroll, {
+            passive: false,
+        });
+    }
+
     // ハンバーガーメニュー切り替えアニメ
     const nav = document.querySelector(".nav");
     const navButton = document.querySelector(".navButton");
     // ハンバーガーメニューの背景
     const navBg = document.querySelector(".navBg");
 
-    // ハンバーガークリック時
-    navButton.addEventListener("click", () => {
-        nav.classList.toggle("open");
-        navButton.classList.toggle("open");
-        navBg.classList.toggle("open");
-    });
-
-    // ナビゲーションの背景クリック時の動作
-    navBg.addEventListener("click", () => {
-        navBg.classList.remove("open");
-        nav.classList.remove("open");
-        navButton.classList.remove("open");
-    });
-
     // クリックで該当箇所までスクロール
     document.getElementById("ready").addEventListener("click", () => {
-        var setTop = document.getElementById("main_pullDown");
-        var position = setTop.scrollTop;
+        var setTop = document.getElementById("ready");
 
-        setTop.scrollIntoView({
-            behavior: "smooth",
-            block: "end",
-        });
+        setTop.scrollIntoView({ behavior: "smooth", block: "start" });
 
-        setTop.classList.add("show");
+        document.getElementById('main_pullDown').classList.add("show");
     });
 
     // ポップアップ出す
@@ -110,71 +113,167 @@ $(function() {
 
     // フォーム入力の反映
     var nameElm = document.querySelector("#inputEventText");
-    var dateElm = document.querySelector("#inputEventDate[type='date']");
-    var timeElm = document.querySelector("#inputEventTime");
+    var dateElm = document.querySelector("input[type='date']");
+    var timeElm = document.querySelector("input[type='time']");
     var memoElm = document.querySelector("#inputMemo");
 
-    var dateAndTimeElm = dateElm + timeElm;
-
     // フォーム値をポップアップに反映
+    // イベント名
     nameElm.addEventListener("input", () => {
         document.getElementById("outputName").innerHTML = nameElm.value;
-        console.log(nameElm.value);
-        // 入力時エラー除去
+        // 文字が入ったらエラー除去
         if (nameElm.value.length != 0) {
             document.getElementById("nameError").innerHTML = "";
         }
     });
 
+    // 日付反映
     dateElm.addEventListener("input", () => {
-        document.getElementById("outputDateTime").innerHTML = dateAndTimeElm.value;
-        console.log(dateAndTimeElm.value);
-        // 入力時エラー除去
+        let dateStr = dateElm.value.split("-");
+        document.getElementById(
+            "outputDateTime"
+        ).innerHTML = `${dateStr[0]}年${dateStr[1]}月${dateStr[2]}日<br> ${timeElm.value}`;
+
+        // 文字が入ったらエラー除去
         if (dateElm.value.length != 0) {
             document.getElementById("dateError").innerHTML = "";
         }
     });
 
+    // 時間反映
+    timeElm.addEventListener("input", () => {
+        let dateStr = dateElm.value.split("-");
+        document.getElementById(
+            "outputDateTime"
+        ).innerHTML = `${dateStr[0]}年${dateStr[1]}月${dateStr[2]}日<br> ${timeElm.value}`;
+
+        // 文字が入ったらエラー除去
+        if (memoElm.value.length != 0) {
+            document.getElementById("timeError").innerHTML = "";
+        }
+    });
+
+    // メモ反映
     memoElm.addEventListener("input", () => {
         document.getElementById("outputMemo").innerHTML = memoElm.value;
-        console.log(memoElm.value);
-        // 入力時エラー除去
-        if (memoElm.value.length != 0) {
-            document.getElementById("memoError").innerHTML = "";
-        }
     });
 
     // done押した時
     doneBtn.addEventListener("click", () => {
+        // スクロール禁止
+        disableScroll();
+
         // 入力がないときはエラーを返す
-        if (nameElm.value === "" && dateElm.value === "" && timeElm.value === "") {
-            document.getElementById("nameError").innerHTML =
-                "イベントを入力してください";
-            document.getElementById("dateError").innerHTML = "日付を入力してください";
-            document.getElementById("timeError").innerHTML = "時間を入力してください";
-        } else if (nameElm.value === "") {
-            document.getElementById("nameError").innerHTML =
-                "イベントを入力してください";
-        } else if (dateElm.value === "") {
-            document.getElementById("dateError").innerHTML = "日付を入力してください";
-        } else if (timeElm.value === "") {
-            document.getElementById("timeError").innerHTML = "時間を入力してください";
-        } else {
+        if (
+            nameElm.value.length !== 0 &&
+            dateElm.value.length !== 0 &&
+            timeElm.value.length !== 0
+        ) {
             var i = 0;
             while (i < 2) {
                 donePopup[i].classList.add("show");
                 i++;
             }
         }
+        if (nameElm.value === "") {
+            document.getElementById("nameError").innerHTML =
+                "イベントを入力してください";
+            // スクロール可能
+            ableScroll();
+        }
+        if (dateElm.value === "") {
+            document.getElementById("dateError").innerHTML = "日付を入力してください";
+            // スクロール可能
+            ableScroll();
+        }
+        if (timeElm.value == "") {
+            document.getElementById("timeError").innerHTML = "時間を入力してください";
+            // スクロール可能
+            ableScroll();
+        }
     });
 
     // done-yesの時
     const doneOK = document.querySelector(".doneOK");
+    const cDownNum = document.getElementById('_time_num');
+    const innerName = document.querySelector('._name_inner');
+    const innerMemo = document.querySelector('._memo_text');
+    const cDownCard = document.querySelector("#main_cDown");
+    // タイマー開始！
+    doneOK.addEventListener('click', () => {
+
+        ableScroll();
+
+        var setTop = document.getElementById("sendOrReset");
+        setTop.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        var i = 0;
+        while (i < 2) {
+            donePopup[i].classList.remove("show");
+            i++;
+        }
+        // カウントダウ開く
+        cDownCard.classList.add('is-open');
+
+        // イベント名表示
+        innerName.innerHTML = nameElm.value;
+
+        let yourDate = new Date(dateElm.value);
+
+        const yTimeStr = timeElm.value.split(':');
+        const hourToMSec = yTimeStr[0] * 60 * 60 * 1000;
+        const minToMSec = yTimeStr[1] * 60 * 1000;
+
+        let yourTimeStamp = yourDate.setDate(yourDate.getDate()) + hourToMSec + minToMSec;
+        // カウントダウン関数
+        const countdown = (due) => {
+            // 残り時間
+            const now = new Date();
+            const rest = due - now;
+            const sec = Math.floor(rest / 1000) % 60;
+            const min = Math.floor(rest / 1000 / 60) % 60;
+            const hours = Math.floor(rest / 1000 / 60 / 60) % 24;
+            const days = Math.floor(rest / 1000 / 60 / 60 / 24);
+            const count = [days, hours, min, sec];
+            if (rest > 0) {
+                return count;
+            } else {
+                cDownNum.innerHTML = '<span class="is-passed">予定を過ぎました。新しく予定を作成するか、正確な予定を設定してください。</span>';
+            }
+        }
+
+        // 目標時間の設定
+        let goal = yourDate;
+        goal.setHours(yTimeStr[0]);
+        goal.setMinutes(yTimeStr[1]);
+        goal.setSeconds(0);
+
+        function recalc() {
+            const counter = countdown(goal);
+            cDownNum.innerHTML =
+                `${counter[0]}日${counter[1]}時間${String(counter[2]).padStart(2, '0')}分${String(counter[3]).padStart(2, '0')}秒`
+            refresh();
+        }
+
+        function refresh() {
+            setTimeout(recalc, 1000);
+        }
+        recalc();
+        // 
+        // メモ表示
+        innerMemo.innerHTML = memoElm.value;
+        if (memoElm.value === "") {
+            innerMemo.innerHTML = "なし";
+        }
+    });
 
     // done-noの時
     const doneCanc = document.querySelector(".doneCanc");
 
     doneCanc.addEventListener("click", () => {
+        // スクロール可能
+        ableScroll();
+
         var i = 0;
         while (i < 2) {
             donePopup[i].classList.remove("show");
@@ -183,6 +282,9 @@ $(function() {
     });
 
     resetBtn.addEventListener("click", () => {
+        // スクロール禁止
+        disableScroll();
+
         var i = 0;
         while (i < 2) {
             resetPopup[i].classList.add("show");
@@ -192,11 +294,15 @@ $(function() {
     // reset-yesの時
     // フォームクリア
     document.querySelector(".resetOK").addEventListener("click", () => {
+        // スクロール可能
+        ableScroll();
+
         var i = 0;
         while (i < 2) {
             resetPopup[i].classList.remove("show");
             i++;
         }
+        // テキストを空に
         nameElm.value = "";
         document.getElementById("outputName").innerHTML = "";
         dateElm.value = "";
@@ -210,6 +316,8 @@ $(function() {
     const resetCanc = document.querySelector(".resetCanc");
 
     resetCanc.addEventListener("click", () => {
+        // スクロール可能
+        ableScroll();
         var i = 0;
         while (i < 2) {
             resetPopup[i].classList.remove("show");
@@ -217,28 +325,17 @@ $(function() {
         }
     });
 
+    const restart = document.querySelector('._restart_btn');
+
+    restart.addEventListener('click', () => {
+        cDownCard.classList.remove('is-open');
+        innerName.innerHTML = "";
+        cDownNum.innerHTML = "";
+        innerMemo.innerHTML = "";
+
+        var setTop = document.getElementById("ready");
+        setTop.scrollIntoView({ behavior: "smooth", block: "start" });
+    })
+
     // ポップアップ出すここまで
-
-    // ポップアップを取り除く
-    const doneBg = document.querySelector(".doneBg");
-    const resetBg = document.querySelector(".resetBg");
-
-    // 取り除く関数
-    function rmPopup(event) {
-        var i = 0;
-        while (i < 2) {
-            event[i].classList.remove("show");
-            i++;
-        }
-    }
-
-    // 背景クリック時の動作
-    doneBg.addEventListener("click", () => {
-        rmPopup(donePopup);
-    });
-
-    // 背景クリック時の動作
-    resetBg.addEventListener("click", () => {
-        rmPopup(resetPopup);
-    });
 });
