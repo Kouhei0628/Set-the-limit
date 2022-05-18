@@ -1,5 +1,6 @@
 class HandleScroll {
     constructor(forTouchDevice, forPointingDevice) {
+            //デバイス操作を登録
             this.forTouchDevice = forTouchDevice;
             this.forPointingDevice = forPointingDevice;
         }
