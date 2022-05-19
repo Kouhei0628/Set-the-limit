@@ -145,8 +145,10 @@ document.addEventListener("DOMContentLoaded", function() {
             const hours = Math.floor(rest / 1000 / 60 / 60) % 24;
             const days = Math.floor(rest / 1000 / 60 / 60 / 24);
             const count = [days, hours, min, sec];
-            return rest > 0 ? count : cDownNum.innerHTML =
-                    '<span class="is-passed">予定を過ぎました。新しく予定を作成するか、正確な予定を設定してください。</span>';
+            return rest > 0 ?
+                count :
+                (cDownNum.innerHTML =
+                    '<span class="is-passed">予定を過ぎました。新しく予定を作成するか、正確な予定を設定してください。</span>');
         };
 
         // 目標時間の設定
