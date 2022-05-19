@@ -33,42 +33,42 @@ document.addEventListener("DOMContentLoaded", function() {
     // フォーム値をポップアップに反映
     // イベント名
     nameElm.addEventListener("input", () => {
-        document.getElementById("outputName").textContent = nameElm.value;
+        new TypeText("#outputName", nameElm.value);
         // 文字が入ったらエラー除去
-        if (nameElm.value.length != 0) {
-            document.getElementById("nameError").textContent = "";
+        if (nameElm.value) {
+            new TypeText("#nameError", "");
         }
     });
 
     // 日付反映
     dateElm.addEventListener("input", () => {
         let dateStr = dateElm.value.split("-");
-        document.getElementById(
-            "outputDateTime"
-        ).innerHTML = `${dateStr[0]}年${dateStr[1]}月${dateStr[2]}日<br> ${timeElm.value}`;
-
+        new TypeHTML(
+            "#outputDateTime",
+            `${dateStr[0]}年${dateStr[1]}月${dateStr[2]}日<br> ${timeElm.value}`
+        );
         // 文字が入ったらエラー除去
-        if (dateElm.value.length != 0) {
-            document.getElementById("dateError").innerHTML = "";
+        if (dateElm.value) {
+            new TypeText("#dateError", "");
         }
     });
 
     // 時間反映
     timeElm.addEventListener("input", () => {
         let dateStr = dateElm.value.split("-");
-        document.getElementById(
-            "outputDateTime"
-        ).innerHTML = `${dateStr[0]}年${dateStr[1]}月${dateStr[2]}日<br> ${timeElm.value}`;
-
+        new TypeHTML(
+            "#outputDateTime",
+            `${dateStr[0]}年${dateStr[1]}月${dateStr[2]}日<br> ${timeElm.value}`
+        );
         // 文字が入ったらエラー除去
-        if (memoElm.value.length != 0) {
-            document.getElementById("timeError").innerHTML = "";
+        if (memoElm.value) {
+            new TypeText("#timeError", "");
         }
     });
 
     // メモ反映
     memoElm.addEventListener("input", () => {
-        document.getElementById("outputMemo").innerHTML = memoElm.value;
+        new TypeText("#outputMemo", memoElm.value);
     });
 
     // done押した時
@@ -77,11 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
         handleScroll.disableScroll();
 
         // 入力がないときはエラーを返す
-        if (
-            nameElm.value.length !== 0 &&
-            dateElm.value.length !== 0 &&
-            timeElm.value.length !== 0
-        ) {
+        if (nameElm.value.length && dateElm.value.length && timeElm.value.length) {
             var i = 0;
             while (i < 2) {
                 donePopup[i].classList.add("show");
@@ -89,17 +85,17 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         if (!nameElm.value) {
-            new TypeErrorText("#nameError", "イベントを入力してください"); //TypeErrorText(element,text)
+            new TypeText("#nameError", "イベントを入力してください"); //TypeText(element,text)
             // スクロール可能
             handleScroll.ableScroll();
         }
         if (!dateElm.value) {
-            new TypeErrorText("#dateError", "日付を入力してください");
+            new TypeText("#dateError", "日付を入力してください");
             // スクロール可能
             handleScroll.ableScroll();
         }
         if (!timeElm.value) {
-            new TypeErrorText("#timeError", "時間を入力してください");
+            new TypeText("#timeError", "時間を入力してください");
             // スクロール可能
             handleScroll.ableScroll();
         }
@@ -113,6 +109,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // タイマー開始！
     doneOK.addEventListener("click", () => {
+        innerName.textContent = "";
+        cDownNum.textContent = "";
+        innerMemo.textContent = "";
         handleScroll.ableScroll();
 
         var setTop = document.getElementById("sendOrReset");
@@ -214,12 +213,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         // テキストを空に
         nameElm.value = "";
-        new TypeErrorText("#outputName", "");
+        new TypeText("#outputName", "");
         dateElm.value = "";
         timeElm.value = "";
-        new TypeErrorText("#outputDateTime", "");
+        new TypeText("#outputDateTime", "");
         memoElm.value = "";
-        new TypeErrorText("#outputMemo", "");
+        new TypeText("#outputMemo", "");
     });
 
     // reset-noの時
@@ -246,7 +245,4 @@ document.addEventListener("DOMContentLoaded", function() {
         var setTop = document.getElementById("ready");
         setTop.scrollIntoView({ behavior: "smooth", block: "start" });
     });
-    // ポップアップ出すここまで
 });
-
-//-- -- -- -- -- -- -- -- -- -
