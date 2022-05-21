@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         handleScroll.disableScroll();
 
         // 入力がないときはエラーを返す
-        if (nameElm.value.length && dateElm.value.length && timeElm.value.length) {
+        if (nameElm.value && dateElm.value && timeElm.value) {
             var i = 0;
             while (i < 2) {
                 donePopup[i].classList.add("show");
@@ -89,17 +89,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         if (!nameElm.value) {
             new TypeText("#nameError", "イベントを入力してください"); //TypeText(element,text)
-            // スクロール可能
             handleScroll.ableScroll();
         }
         if (!dateElm.value) {
             new TypeText("#dateError", "日付を入力してください");
-            // スクロール可能
             handleScroll.ableScroll();
         }
         if (!timeElm.value) {
             new TypeText("#timeError", "時間を入力してください");
-            // スクロール可能
             handleScroll.ableScroll();
         }
     });
