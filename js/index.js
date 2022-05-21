@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
         scrollAnime();
     });
     // -----
+    //デバイス操作を設定
     const handleScroll = new HandleScroll("touchmove", "mousewheel");
 
     // クリックで該当箇所までスクロール
@@ -14,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var setTop = document.getElementById("ready");
 
         setTop.scrollIntoView({ behavior: "smooth", block: "start" });
-
+        //入力画面がオープン
         document.getElementById("main_pullDown").classList.add("show");
     });
 
@@ -33,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // フォーム値をポップアップに反映
     // イベント名
     nameElm.addEventListener("input", () => {
+        //class TypeText は textContent を挿入、
+        //class TypeHTML は innerHTML を挿入。
         new TypeText("#outputName", nameElm.value);
         // 文字が入ったらエラー除去
         if (nameElm.value) {
@@ -77,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         handleScroll.disableScroll();
 
         // 入力がないときはエラーを返す
-        if (nameElm.value.length && dateElm.value.length && timeElm.value.length) {
+        if (nameElm.value && dateElm.value && timeElm.value) {
             var i = 0;
             while (i < 2) {
                 donePopup[i].classList.add("show");
@@ -86,17 +89,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         if (!nameElm.value) {
             new TypeText("#nameError", "イベントを入力してください"); //TypeText(element,text)
-            // スクロール可能
             handleScroll.ableScroll();
         }
         if (!dateElm.value) {
             new TypeText("#dateError", "日付を入力してください");
-            // スクロール可能
             handleScroll.ableScroll();
         }
         if (!timeElm.value) {
             new TypeText("#timeError", "時間を入力してください");
-            // スクロール可能
             handleScroll.ableScroll();
         }
     });
@@ -142,12 +142,10 @@ document.addEventListener("DOMContentLoaded", function() {
             const hours = Math.floor(rest / 1000 / 60 / 60) % 24;
             const days = Math.floor(rest / 1000 / 60 / 60 / 24);
             const count = [days, hours, min, sec];
-            if (rest > 0) {
-                return count;
-            } else {
-                cDownNum.innerHTML =
-                    '<span class="is-passed">予定を過ぎました。新しく予定を作成するか、正確な予定を設定してください。</span>';
-            }
+            return rest > 0 ?
+                count :
+                (cDownNum.innerHTML =
+                    '<span class="is-passed">予定を過ぎました。新しく予定を作成するか、正確な予定を設定してください。</span>');
         };
 
         // 目標時間の設定
